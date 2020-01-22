@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=600, initial-scale=1.0">
+    <meta name="viewport" content="width=412, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#FFE1C4">
+
     <link rel="stylesheet" href="<?= BASEURL;?>css/bootstrap.css">
+
+    <!-- pwa manifest -->
+    <link rel="manifest" href="<?= BASEURL;?>/manifest.json">
+
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="<?= BASEURL;?>icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+
     <title><?= $data['judul'] ?></title>
 </head>
 <body>
