@@ -1,4 +1,37 @@
+git remote 
+- melihat nama remote
+
 git status
+- untuk melihat status git
+
+git add
+- untuk memindahkan ke staging area atau tracking file & folder
+
+git commit -m "PESAN"
+
+git push
+- untuk menyingkronkan ke github
+
+git config --list
+- untuk melihat list config
+
+Kalau ada konflik pada remote yg harus dilakukan
+
+    1. git fetch
+    - untuk mengecek commit pada remote. untuk menangani jika ketika melalakukan push ada konflik di remote
+
+    2. git status
+    - setelah di fetch status akan berubah
+
+    3. git pull
+    - untuk menyelesaikan konflik secara manual
+
+:q
+-untuk keluar dari config list
+
+untuk mengganti username disemua folder
+- git config --global user.name "USERNAME"
+- git config --global user.email "EMAIL"
 
 git remote -v
 origin  https://github.com/awlbas/financial-checkup.git (fetch)

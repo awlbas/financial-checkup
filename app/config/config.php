@@ -1,6 +1,6 @@
 <?php
 
-define('BASEURL', 'http://localhost/fc/public/');
+define('BASEURL', 'http://localhost/financial-checkup/public/');
 
 // DB
 define('DB_HOST', 'localhost');
