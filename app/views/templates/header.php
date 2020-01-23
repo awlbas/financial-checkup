@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= BASEURL;?>css/bootstrap.css">
 
     <!-- pwa manifest -->
-    <link rel="manifest" href="<?= BASEURL;?>/manifest.json">
+    <link rel="manifest" href="<?= BASEURL;?>manifest.json">
 
     <!-- ios support -->
     <link rel="apple-touch-icon" href="<?= BASEURL;?>icons/icon-96x96.png">
@@ -21,7 +21,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="<?= BASEURL; ?>">Financial Checkup</a>
+        <a class="navbar-brand" href="<?= BASEURL; ?>">FC</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

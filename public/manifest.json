@@ -1,7 +1,7 @@
 {
   "name": "Financial Checkup",
   "short_name": "FinancialCheckup",
-  "start_url": "/financial-checkup/public//index.php",
+  "start_url": "/financial-checkup/public/",
   "display": "standalone",
   "background_color": "#FFE9D2",
   "theme_color": "#FFE1C4",
