@@ -1,5 +1,5 @@
-const staticCacheName = 'site-static-v2';
-const dynamicCacheName = 'site-dynamic-v1';
+const staticCacheName = 'site-static-v3';
+const dynamicCacheName = 'site-dynamic-v2';
 const assets = [
     '/financial-checkup/public/',
     '/financial-checkup/public/index.php',
@@ -50,18 +50,21 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
+    
     // console.log('fetch event', evt);
-    // evt.respondWith(
-    //     caches.match(evt.request).then(cacheRes => {
-    //         return cacheRes || fetch(evt.request).then(fetchRes => {
-    //             return caches.open(dynamicCacheName).then( cache => {
-    //                 cache.put(evt.request.url, fetchRes.clone());
-    //                 limitCacheSize(dynamicCacheName, 20);
-    //                 return fetchRes; 
-    //             })
-    //         });
-    //     })  .catch(() => caches.match('/financial-checkup/public/fallback/index.php'))
-    // );
+    if(evt.request.url.indexOf('firestore.googleapis.com') === -1){
+        evt.respondWith(
+            caches.match(evt.request).then(cacheRes => {
+                return cacheRes || fetch(evt.request).then(fetchRes => {
+                    return caches.open(dynamicCacheName).then( cache => {
+                        cache.put(evt.request.url, fetchRes.clone());
+                        limitCacheSize(dynamicCacheName, 20);
+                        return fetchRes; 
+                    })
+                });
+            })  .catch(() => caches.match('/financial-checkup/public/fallback/index.php'))
+        );
+    }
 });
 
 // conditional fallback still error
