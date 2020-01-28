@@ -51,17 +51,17 @@ self.addEventListener('activate', evt => {
 // fetch event
 self.addEventListener('fetch', evt => {
     // console.log('fetch event', evt);
-    evt.respondWith(
-        caches.match(evt.request).then(cacheRes => {
-            return cacheRes || fetch(evt.request).then(fetchRes => {
-                return caches.open(dynamicCacheName).then( cache => {
-                    cache.put(evt.request.url, fetchRes.clone());
-                    limitCacheSize(dynamicCacheName, 20);
-                    return fetchRes; 
-                })
-            });
-        })  .catch(() => caches.match('/financial-checkup/public/fallback/index.php'))
-    );
+    // evt.respondWith(
+    //     caches.match(evt.request).then(cacheRes => {
+    //         return cacheRes || fetch(evt.request).then(fetchRes => {
+    //             return caches.open(dynamicCacheName).then( cache => {
+    //                 cache.put(evt.request.url, fetchRes.clone());
+    //                 limitCacheSize(dynamicCacheName, 20);
+    //                 return fetchRes; 
+    //             })
+    //         });
+    //     })  .catch(() => caches.match('/financial-checkup/public/fallback/index.php'))
+    // );
 });
 
 // conditional fallback still error
