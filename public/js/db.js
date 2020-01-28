@@ -22,3 +22,23 @@ db.collection('aset').onSnapshot((snapshot) => {
         }
     })
 })
+
+// add new aset
+const form = document.querySelector('form');
+form.addEventListener('submit', evt => {
+    evt.preventDefault();
+
+    const taset = {
+        nama: form.nama.value,
+        tipe: form.tipe.value,
+        nilai: form.nilai.value,
+    };
+
+    db.collection('aset').add(taset)
+        .catch(err => console.log(err));
+
+    form.nama.value = '';
+    form.tipe.value = '';
+    form.nilai.value = '';
+
+});
