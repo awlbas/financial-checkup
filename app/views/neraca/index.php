@@ -1,9 +1,13 @@
 <div class="container">
 
+<form action=""></form>
+
 <br>
     <h5>ASET</h5><br>
     <a class="btn btn-primary" href="<?=BASEURL?>neraca/tambahaset" role="button">Tambah Aset</a><br>
+    
     <div class="aset"></div>
+
 <!-- 
     <?php foreach( $data['aset'] as $aset ) : ?>
         <ul class="list-group list-group-horizontal">

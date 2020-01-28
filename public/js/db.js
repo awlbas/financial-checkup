@@ -19,6 +19,7 @@ db.collection('aset').onSnapshot((snapshot) => {
         }
         if (change.type === 'removed'){
             // remove the document data frowm the web page
+            removeAset(change.doc.id);
         }
     })
 })
@@ -31,7 +32,7 @@ form.addEventListener('submit', evt => {
     const taset = {
         nama: form.nama.value,
         tipe: form.tipe.value,
-        nilai: form.nilai.value,
+        nilai: form.nilai.value
     };
 
     db.collection('aset').add(taset)
@@ -41,4 +42,14 @@ form.addEventListener('submit', evt => {
     form.tipe.value = '';
     form.nilai.value = '';
 
+});
+
+// delete a aset
+const asetContainer = document.querySelector('.aset');
+asetContainer.addEventListener('click', evt => {
+    // console.log(evt);
+    if(evt.target.tagName === 'A'){
+        const id = evt.target.getAttribute('data-id');
+        db.collection('aset').doc(id).delete();
+    }
 });
