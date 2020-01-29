@@ -6,10 +6,6 @@
 <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
-
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -24,7 +20,6 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
   const db = firebase.firestore();
 </script>
 <script src="<?= BASEURL;?>js/app.js"></script>
