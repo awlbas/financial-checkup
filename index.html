@@ -21,7 +21,7 @@
       </span>
     </div>
   </nav>
-
+  
   <!-- side nav -->
   <ul id="side-menu" class="sidenav side-menu">
     <li><a class="subheader">CHECKUP</a></li>
@@ -33,12 +33,12 @@
     </li>
   </ul>
 
-  <!-- laporan -->
-  <div class="kekayaanBersih danaDarurat rasioInvest rasioWajibAset rasioWajibHasil container grey-text text-darken-1">
-    <h6 class="center">Laporan Kesehatan Keuangan</h6>
+  <!-- button -->
+  <div class="center">
+    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+      <i class="material-icons">add</i>
+    </a>
   </div>
-
-  <div class="divider"></div>
 
   <!-- asets -->
   <div class="recipes container grey-text text-darken-1">
@@ -46,6 +46,14 @@
   </div>
 
   <div class="divider"></div>
+
+  <!-- laporan -->
+  <div class="kekayaanBersih danaDarurat rasioInvest rasioWajibAset rasioWajibHasil container grey-text text-darken-1">
+    <h6 class="center">Laporan Kesehatan Keuangan</h6>
+  </div>
+
+  <div class="divider"></div>
+
   
   <!-- kewajiban -->
   <div class="kewajiban container grey-text text-darken-1">
@@ -68,31 +76,31 @@
 
   <div class="divider"></div>
 
-  <div class="center">
-    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
-      <i class="material-icons">add</i>
-    </a>
-  </div>
 
-  <!-- add recipe side nav -->
+  <!-- add aset side nav -->
   <div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
       <h6 >New Aset</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Tabungan Mandiri" id="title" type="text" class="validate">
-        <label for="title">Nama Aset</label>
+        <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate">
+        <label for="nama">Nama Aset</label>
       </div>
       <div class="input-field">
-        <input placeholder="e.g. Likuid, Ivestasi, Perusahaan" id="tipe" type="text" class="validate">
-        <label for="tipe">Tipe</label>
+        <select name="tipe" id="tipe">
+            <option value="" disabled selected>Pilih Tipe Aset</option>
+            <option value="Likuid">Likuid</option>
+            <option value="Investasi">Investasi</option>
+            <option value="Perusahaan">Perusahaan</option>
+        </select>
+        <label for="tipe">Tipe Aset : </label>
       </div>
       <div class="input-field">
         <input placeholder="e.g. 1000" id="nilai" type="text" class="validate">
         <label for="nilai">Nilai</label>
       </div>
       <div class="input-field center">
-        <button class="btn-small">Add</button>
+        <button id="addAset" class="btn-small">Add</button>
       </div>
     </form>
   </div>

@@ -1,3 +1,14 @@
+function addAset() {
+    let items =
+      { nama: document.getElementById('nama').value,
+        tipe: document.getElementById('tipe').value,
+        nilai: parseInt(document.getElementById('nilai').value),
+      };
+    asets.push(items);
+    console.log(asets);
+    return false;
+  }
+
 // generate random id
 console.log(Math.floor(1000 + Math.random() * 9000));
 
