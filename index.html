@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +33,17 @@
     </li>
   </ul>
 
+  <!-- asets -->
+  <div class="asets container grey-text text-darken-1"></div>
+  <div class="totalaset container">
+    <div class="card-panel white row center">
+      <div class="aset-details">
+          <div class="aset-title">TOTAL ASET</div>
+          <div class="aset-title">0</div>
+      </div>
+    </div>
+  </div>
+
   <!-- button -->
   <div class="center">
     <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
@@ -40,48 +51,10 @@
     </a>
   </div>
 
-  <!-- asets -->
-  <div class="recipes container grey-text text-darken-1">
-    <h6 class="center">Aset</h6>
-  </div>
-  <div class="totalaset container"></div>
-
-  <div class="divider"></div>
-
-  <!-- laporan -->
-  <div class="kekayaanBersih danaDarurat rasioInvest rasioWajibAset rasioWajibHasil container grey-text text-darken-1">
-    <h6 class="center">Laporan Kesehatan Keuangan</h6>
-  </div>
-
-  <div class="divider"></div>
-
-  
-  <!-- kewajiban -->
-  <div class="kewajiban container grey-text text-darken-1">
-    <h6 class="center">Kewajiban</h6>
-  </div>
-
-  <div class="divider"></div>
-  
-  <!-- Dana Masuk -->
-  <div class="danaMasuk container grey-text text-darken-1">
-    <h6 class="center">Dana Masuk</h6>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Dana Keluar -->
-  <div class="danakeluar container grey-text text-darken-1">
-    <h6 class="center">Dana Keluar</h6>
-  </div>
-
-  <div class="divider"></div>
-
-
   <!-- add aset side nav -->
   <div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
-      <h6 >New Aset</h6>
+      <h6 >Tambah Aset</h6>
       <div class="divider"></div>
       <div class="input-field">
         <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate">
@@ -89,7 +62,7 @@
       </div>
       <div class="input-field">
         <select name="tipe" id="tipe">
-            <option value="" disabled selected>Pilih Tipe Aset</option>
+            <option value="" disabled selected>Pilih Tipe</option>
             <option value="Likuid">Likuid</option>
             <option value="Investasi">Investasi</option>
             <option value="Perusahaan">Perusahaan</option>
@@ -107,10 +80,6 @@
   </div>
 
   <script src="js/aset.js"></script>
-  <script src="js/wajib.js"></script>
-  <script src="js/danamasuk.js"></script>
-  <script src="js/danakeluar.js"></script>
-  <script src="js/hasil.js"></script>
   <script src="js/ui.js"></script>
 </body>
 </html>

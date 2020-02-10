@@ -1,11 +1,10 @@
-const recipes = document.querySelector('.recipes');
 const form = document.querySelector('.side-form');
 
 document.addEventListener('DOMContentLoaded', function() {
   // nav menu
   const menus = document.querySelectorAll('.side-menu');
   M.Sidenav.init(menus, {edge: 'right'});
-  // add recipe form
+  // add aset form
   const forms = document.querySelectorAll('.side-form');
   M.Sidenav.init(forms, {edge: 'left'});
 });
@@ -19,19 +18,19 @@ document.addEventListener('DOMContentLoaded', function() {
 // render new aset
 const renderAset = (data, id) => {
   const html = `
-  <div class="card-panel recipe white row" data-id="${id}">
-    <img src="img/dish.png" alt="recipe thumb">
-    <div class="recipe-details">
-      <div class="recipe-title">${data.nama}</div>
-      <div class="recipe-ingredients">${data.tipe}</div>
-      <div class="recipe-title">${data.nilai}</div>
+  <div class="card-panel aset white row" data-id="${id}">
+    <img src="img/dish.png" alt="aset thumb">
+    <div class="aset-details">
+      <div class="aset-title">${data.nama}</div>
+      <div class="aset-ingredients">${data.tipe}</div>
+      <div class="aset-title">${data.nilai}</div>
     </div>
-    <div class="recipe-delete">
+    <div class="aset-delete">
       <i class="material-icons" data-id="${id}">delete_outline</i>
     </div>
   </div>
 `;
-  document.querySelector('.recipes').innerHTML += html
+  document.querySelector('.asets').innerHTML += html
 }
 
 form.addEventListener('submit', evt => {
@@ -48,12 +47,12 @@ form.addEventListener('submit', evt => {
 
 
 // remove aset
-const asetContainer = document.querySelector('.recipes');
+const asetContainer = document.querySelector('.asets');
 asetContainer.addEventListener('click', evt =>{
   if(evt.target.tagName === 'I'){
     const id = evt.target.getAttribute('data-id');
     asets.splice(id, 1);
-    const aset = document.querySelector(`.recipe[data-id="${id}"]`);
+    const aset = document.querySelector(`.aset[data-id="${id}"]`);
     aset.remove();
     renderTotalAset();
   }
