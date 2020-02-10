@@ -43,8 +43,19 @@ form.addEventListener('submit', evt => {
   };
   asets.push(items);
   renderAset(asets[asets.length-1], asets.length-1);
+  renderTotalAset();
 });
 
 
-// addAset(document.getElementById('nama').value, document.getElementById('tipe').value, parseInt(document.getElementById('nilai').value));
+// remove aset
+const asetContainer = document.querySelector('.recipes');
+asetContainer.addEventListener('click', evt =>{
+  if(evt.target.tagName === 'I'){
+    const id = evt.target.getAttribute('data-id');
+    asets.splice(id, 1);
+    const aset = document.querySelector(`.recipe[data-id="${id}"]`);
+    aset.remove();
+    renderTotalAset();
+  }
 
+});

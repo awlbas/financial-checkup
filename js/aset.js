@@ -1,11 +1,12 @@
 
 var asets = [
-    {nama: 'emas', tipe:'investasi', nilai: 1000},
-    {nama: 'tabungan bca', tipe: 'likuid', nilai: 500},
-    {nama: 'tabungan mandiri', tipe: 'likuid', nilai: 500}
+    // {nama: 'emas', tipe:'investasi', nilai: 1000},
+    // {nama: 'tabungan bca', tipe: 'likuid', nilai: 500},
+    // {nama: 'tabungan mandiri', tipe: 'likuid', nilai: 500}
 ];
 
 // render total aset
+function renderTotalAset() {
 let totalAset = 0;
 asets.forEach( aset => totalAset += aset.nilai );
 const totalAsetUi = `
@@ -15,4 +16,5 @@ const totalAsetUi = `
             <div class="recipe-title">${totalAset}</div>
         </div>
     `;
-document.querySelector('.recipes').innerHTML += totalAsetUi;
+document.querySelector('.totalaset').innerHTML = totalAsetUi;
+}
