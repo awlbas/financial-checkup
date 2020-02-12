@@ -1,5 +1,3 @@
-const form = document.querySelector('.side-form');
-
 document.addEventListener('DOMContentLoaded', function() {
   // nav menu
   const menus = document.querySelectorAll('.side-menu');
@@ -14,19 +12,20 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.FormSelect.init(elems, {});
 });
 
-form.addEventListener('submit', evt => {
-  evt.preventDefault();
-  const items =
-  { nama: document.getElementById('nama').value,
-    tipe: document.getElementById('tipe').value,
-    nilai: parseInt(document.getElementById('nilai').value,),
-  };
-  console.log(items);
+// const form = document.querySelector('.side-form');
+// form.addEventListener('submit', evt => {
+//   evt.preventDefault();
+//   const items =
+//   { nama: document.getElementById('nama').value,
+//     tipe: document.getElementById('tipe').value,
+//     nilai: parseInt(document.getElementById('nilai').value,),
+//   };
+//   console.log(items);
   
-  // asets.push(items);
-  // renderAset(asets[asets.length-1], asets.length-1);
-  // renderTotalAset();
-});
+//   // asets.push(items);
+//   // renderAset(asets[asets.length-1], asets.length-1);
+//   // renderTotalAset();
+// });
 
 // render new aset
 // const renderAset = (data, id) => {
@@ -48,14 +47,14 @@ form.addEventListener('submit', evt => {
 
 
 // remove aset
-const asetContainer = document.querySelector('.asets');
-asetContainer.addEventListener('click', evt =>{
-  if(evt.target.tagName === 'I'){
-    const id = evt.target.getAttribute('data-id');
-    asets.splice(id, 1);
-    const aset = document.querySelector(`.aset[data-id="${id}"]`);
-    aset.remove();
-    renderTotalAset();
-  }
+// const asetContainer = document.querySelector('.asets');
+// asetContainer.addEventListener('click', evt =>{
+//   if(evt.target.tagName === 'I'){
+//     const id = evt.target.getAttribute('data-id');
+//     asets.splice(id, 1);
+//     const aset = document.querySelector(`.aset[data-id="${id}"]`);
+//     aset.remove();
+//     renderTotalAset();
+//   }
 
-});
+// });

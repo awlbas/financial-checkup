@@ -34,14 +34,14 @@
   </ul>
 
   <!-- asets -->
-  <div class="container grey-text text-darken-1"></div>
-  <div class="asets container"></div>
+  <div class="items container grey-text text-darken-1"></div>
+  
   <!-- total -->
   <div class="totalaset container">
     <div class="card-panel white row center">
       <div class="aset-details">
           <div class="aset-title">TOTAL ASET</div>
-          <div class="aset-title">0</div>
+          <div class="aset-title" id="total-aset">0</div>
       </div>
     </div>
   </div>
@@ -59,12 +59,11 @@
       <h6 >Tambah Aset</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate">
-        <label for="nama">Nama Aset</label>
+        <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
       </div>
       <div class="input-field">
-        <select name="tipe" id="tipe">
-            <option value="" disabled selected>Pilih Tipe</option>
+        <select name="tipe" id="tipe" required>
+            <option value="Pilih" disabled selected>Pilih Tipe</option>
             <option value="Likuid">Likuid</option>
             <option value="Investasi">Investasi</option>
             <option value="Perusahaan">Perusahaan</option>
@@ -72,8 +71,7 @@
         <label for="tipe">Tipe Aset : </label>
       </div>
       <div class="input-field">
-        <input placeholder="e.g. 1000" id="nilai" type="text" class="validate">
-        <label for="nilai">Nilai</label>
+        <input placeholder="e.g. 1000" id="nilai" type="number" class="validate" required><label for="nilai">Nilai</label>
       </div>
       <div class="input-field center">
         <button id="addAset" class="btn-small">Add</button>
@@ -82,7 +80,6 @@
   </div>
 
   <script src="js/db.js"></script>
-  <script src="js/aset.js"></script>
   <script src="js/ui.js"></script>
 </body>
 </html>
