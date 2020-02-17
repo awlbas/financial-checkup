@@ -34,5 +34,9 @@ untuk mengganti username disemua folder
 - git config --global user.email "EMAIL"
 
 git remote -v
+- untuk melihat repo yg di remote
 origin  https://github.com/awlbas/financial-checkup.git (fetch)
 origin  https://github.com/awlbas/financial-checkup.git (push)
+
+git remote add origin-web
+- menambah repo untuk di remote
