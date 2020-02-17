@@ -39,4 +39,4 @@ origin  https://github.com/awlbas/financial-checkup.git (fetch)
 origin  https://github.com/awlbas/financial-checkup.git (push)
 
 git remote add origin-web
-- menambah repo untuk di remote
+- menambah repo untuk di remote 
