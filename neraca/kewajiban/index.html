@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Financial Checkup</title>
   <!-- materialize icons, css & js -->
-  <link type="text/css" href="css/materialize.min.css" rel="stylesheet">
+  <link type="text/css" href="/css/materialize.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" href="css/styles.css" rel="stylesheet">
-  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <link type="text/css" href="/css/styles.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
   <!-- ios support -->
   <link rel="manifest" href="/manifest.json">
   <!-- ios support -->
   <link rel="apple-touch-icon" href="/icons/icon-96x96.png">
   <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
 </head>
-<body class="grey lighten-4 function" id="aset">
+<body class="grey lighten-4 function" id="kewajiban">
 
   <!-- top nav -->
   <nav class="z-depth-0">
@@ -31,23 +31,23 @@
   <!-- side nav -->
   <ul id="side-menu" class="sidenav side-menu">
     <li><a class="subheader">CHECKUP</a></li>
-    <li><a href="" class="waves-effect">Home</a></li>
-    <li><a href="pages/about.html" class="waves-effect">About</a></li>
+    <li><a href="/" class="waves-effect">Home</a></li>
+    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
     <li><div class="divider"></div></li>
-    <li><a href="pages/contact.html" class="waves-effect">
+    <li><a href="/pages/contact.html" class="waves-effect">
       <i class="material-icons">mail_outline</i>Contact</a>
     </li>
   </ul>
 
-  <!-- asets -->
-  <div class="container"><h6 class="center">Aset</h6></div>
+  <!-- kewajiban -->
+  <div class="container"><h6 class="center">Kewajiban</h6></div>
   <div class="items container grey-text text-darken-1"></div>
   
   <!-- total -->
   <div class="totalaset container">
     <div class="card-panel white row center">
       <div class="item-details">
-          <div class="item-title">TOTAL ASET</div>
+          <div class="item-title">TOTAL KEWAJIBAN</div>
           <div class="item-title" id="total-item">0</div>
       </div>
     </div>
@@ -63,17 +63,16 @@
   <!-- add aset side nav -->
   <div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
-      <h6>Tambah Aset</h6>
+      <h6 >Tambah Kewajiban</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
+        <input placeholder="e.g. Kartu Kredit" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
       </div>
       <div class="input-field">
         <select name="tipe" id="tipe" required>
             <option value="Pilih" disabled selected>Pilih Tipe</option>
-            <option value="Likuid">Likuid</option>
-            <option value="Investasi">Investasi</option>
-            <option value="Perusahaan">Perusahaan</option>
+            <option value="Jangka Pendek">Jangka Pendek</option>
+            <option value="Jangka Panjang">Jangka Panjang</option>
         </select>
         <label for="tipe">Tipe Aset : </label>
       </div>
@@ -87,7 +86,7 @@
   </div>
 
   <!-- <script src="js/app.js"></script> -->
-  <script src="js/db.js"></script>
-  <script src="js/ui.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/ui.js"></script>
 </body>
 </html>
