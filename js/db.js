@@ -8,14 +8,15 @@ const DB_NAME = 'fc-db';
 const DB_VERSION = 1;
 const FORM = document.querySelector('.side-form');
 const ITEMS = document.querySelector('.items');
-// const ASET = document.querySelector('.aset');
 const FUNC = document.querySelector('.function').getAttribute('id');
 const NAMA = document.getElementById('nama');
 const TIPE = document.getElementById('tipe');
 const NILAI = document.getElementById('nilai');
 const KEWAJIBAN = ['kewajiban',[{nama:'Kartu kredit',tipe:'Jangka Pendek',nilai: 100},{nama:'Cicilan Workshop',tipe:'Jangka Panjang',nilai:200}]];
 const ASET = ['aset',[{nama:'Tabungan',tipe:'Likuid',nilai: 100},{nama:'Emas',tipe:'Investasi',nilai:150},{nama:'Alat Produksi',tipe:'Perusahaan',nilai:500}]];
-const DB_STORE_NAME = [ASET, KEWAJIBAN];
+const DANAMASUK = ['danamasuk',[{nama:'Profit Bersih Penjualan',tipe:'Tetap',nilai: 100},{nama:'Komisi',tipe:'Tidak Tetap',nilai:150}]];
+const DANAKELUAR = ['danakeluar',[{nama:'Gaji Karyawan',tipe:'Tetap perusahaan',nilai: 100},{nama:'Biaya Transportasi',tipe:'Tetap Operasional',nilai:150},{nama:'Cicilan Modal Kerja',tipe:'Kewajiban Jangka Pendek',nilai:150},{nama:'Cicilan Kantor',tipe:'Kewajiban Jangka Panjang',nilai:150},{nama:'Tabungan Pensiun',tipe:'Tabungan & Investasi',nilai:150},{nama:'Premi Asuransi',tipe:'Proteksi',nilai:150},{nama:'TV Kabel',tipe:'Konsumtif',nilai:150},{nama:'Pajak Mobil & Motor',tipe:'Variabel',nilai:150},]];
+const DB_STORE_NAME = [ASET, KEWAJIBAN, DANAMASUK, DANAKELUAR];
 
 // store result db connection
 let db;
@@ -25,11 +26,14 @@ window.onload = () => {
     // lookup function
     let lookupFunction = {
         // displayData
-        'aset':()=>{displayData(0,0)}, 'kewajiban':()=>{displayData(1,0)},
+        'aset':()=>{displayData(0,0)},'kewajiban':()=>{displayData(1,0)},
+        'danamasuk':()=>{displayData(2,0)},'danakeluar':()=>{displayData(3,0)},
         // addData
         'addaset':()=>{addData(0,0)},'addkewajiban':()=>{addData(1,0)},
+        'adddanamasuk':()=>{addData(2,0)},'adddanakeluar':()=>{addData(3,0)},
         // removeData
-        'remaset':(itemId)=>{removeData(0,0,itemId)},'remkewajiban':(itemId)=>{removeData(1,0,itemId)}
+        'remaset':(itemId)=>{removeData(0,0,itemId)},'remkewajiban':(itemId)=>{removeData(1,0,itemId)},
+        'remdanamasuk':()=>{displayData(2,0)},'remdanakeluar':()=>{displayData(3,0)},
     }
 
     // create db connection
@@ -91,20 +95,20 @@ window.onload = () => {
                 // create a list item to put each data item inside when displaying it
                 const listItem = `
                     <div class="card-panel item white row" data-id=${cursor.value.id}>
-                        <img src="/img/dish.png" alt="kewajiban thumb">
+                        <img src="/img/dish.png" alt="thumb">
                         <div class="item-details">
                             <div class="item-title">${cursor.value.nama}</div>
                             <div class="item-tipe">${cursor.value.tipe}</div>
                             <div class="item-title">${cursor.value.nilai}</div>
                         </div>
                         <div class="item-delete">
-                            <i class="material-icons" id="remkewajiban" data-id="${cursor.value.id}">delete_outline</i>
+                            <i class="material-icons" id="rem${DB_STORE_NAME[a][b]}" data-id="${cursor.value.id}">delete_outline</i>
                         </div>
                     </div>
                 `;
-                // put the item inside the kewajiban
+                // put the item inside the html
                 ITEMS.innerHTML += listItem;
-                // sum total kewajiban
+                // sum total item
                 document.getElementById("total-item").innerHTML = total+=cursor.value.nilai;
                 // continue on to the next item in the cursor
                 cursor.continue();
@@ -152,7 +156,7 @@ window.onload = () => {
         };
     }
 
-    // add event listener for delete kewajiban
+    // add event listener for delete item
     ITEMS.addEventListener('click', event => {
         if(event.target.tagName === 'I'){
             // retrieve the name of the item we want to delete
@@ -162,7 +166,7 @@ window.onload = () => {
         }
     })
     function removeData(a,b,itemId){
-        // open a database transaction and delete the aset, finding it by keypath we retrieved above
+        // open a database transaction and delete the item, finding it by keypath we retrieved above
         let transaction = db.transaction(DB_STORE_NAME[a][b], "readwrite");
         transaction.objectStore(DB_STORE_NAME[a][b]).delete(itemId);
 
@@ -170,7 +174,7 @@ window.onload = () => {
         transaction.oncomplete = () => {
             // delete the parent of the button, which is the list item, so it no longer is displayed
             document.querySelector(`.item[data-id="${itemId}"]`).remove();
-            console.log('aset with index number \"' + itemId + '\" deleted.');
+            console.log('item with index number \"' + itemId + '\" deleted.');
             document.getElementById("total-item").innerHTML = '0';
             displayData(a,b);
         }

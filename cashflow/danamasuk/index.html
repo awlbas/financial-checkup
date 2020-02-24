@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" href="/icons/icon-96x96.png">
   <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
 </head>
-<body class="grey lighten-4 function" id="kewajiban">
+<body class="grey lighten-4 function" id="danamasuk">
 
   <!-- top nav -->
   <nav class="z-depth-0">
@@ -28,34 +28,34 @@
     </div>
   </nav>
   
- <!-- side nav -->
- <ul id="side-menu" class="sidenav side-menu">
-  <li><a class="subheader">FINANCIAL CHECKUP</a></li>
-  <li><a href="/" class="waves-effect">Home</a></li>
-  <li><a href="/pages/about.html" class="waves-effect">About</a></li>
-  <li><div class="divider"></div></li>
-  <li><a class="subheader">NERACA</a></li>
-  <li><a href="/neraca/aset/" class="waves-effect">Aset</a></li>
-  <li><a href="/neraca/kewajiban/" class="waves-effect">Kewajiban</a></li>
-  <li><div class="divider"></div></li>
-  <li><a class="subheader">CASH FLOW</a></li>
-  <li><a href="/cashflow/danamasuk/" class="waves-effect">Dana Masuk</a></li>
-  <li><a href="/cashflow/danakeluar/" class="waves-effect">Dana Keluar</a></li>
-  <li><div class="divider"></div></li>
-  <li><a href="/pages/contact.html" class="waves-effect">
-    <i class="material-icons">mail_outline</i>Contact</a>
-  </li>
-</ul>
+  <!-- side nav -->
+  <ul id="side-menu" class="sidenav side-menu">
+    <li><a class="subheader">FINANCIAL CHECKUP</a></li>
+    <li><a href="/" class="waves-effect">Home</a></li>
+    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">NERACA</a></li>
+    <li><a href="/neraca/aset/" class="waves-effect">Aset</a></li>
+    <li><a href="/neraca/kewajiban/" class="waves-effect">Kewajiban</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">CASH FLOW</a></li>
+    <li><a href="/cashflow/danamasuk/" class="waves-effect">Dana Masuk</a></li>
+    <li><a href="/cashflow/danakeluar/" class="waves-effect">Dana Keluar</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/pages/contact.html" class="waves-effect">
+      <i class="material-icons">mail_outline</i>Contact</a>
+    </li>
+  </ul>
 
-  <!-- kewajiban -->
-  <div class="container"><h6 class="center">Kewajiban</h6></div>
+  <!-- danamasuk -->
+  <div class="container"><h6 class="center">Dana Masuk</h6></div>
   <div class="items container grey-text text-darken-1"></div>
   
   <!-- total -->
-  <div class="totalaset container">
+  <div class="totaldanamasuk container">
     <div class="card-panel white row center">
       <div class="item-details">
-          <div class="item-title">TOTAL KEWAJIBAN</div>
+          <div class="item-title">TOTAL DANA MASUK</div>
           <div class="item-title" id="total-item">0</div>
       </div>
     </div>
@@ -71,24 +71,24 @@
   <!-- add aset side nav -->
   <div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
-      <h6 >Tambah Kewajiban</h6>
+      <h6>Tambah Dana Masuk</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Kartu Kredit" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
+        <input placeholder="e.g. Profit Bersih Penjualan" id="nama" type="text" class="validate" required><label for="nama">Nama Dana Masuk</label>
       </div>
       <div class="input-field">
         <select name="tipe" id="tipe" required>
             <option value="Pilih" disabled selected>Pilih Tipe</option>
-            <option value="Jangka Pendek">Jangka Pendek</option>
-            <option value="Jangka Panjang">Jangka Panjang</option>
+            <option value="Tetap">Tetap</option>
+            <option value="Tidak Tetap">Tidak Tetap</option>
         </select>
-        <label for="tipe">Tipe Aset : </label>
+        <label for="tipe">Tipe Dana Masuk : </label>
       </div>
       <div class="input-field">
         <input placeholder="e.g. 1000" id="nilai" type="number" class="validate" required><label for="nilai">Nilai</label>
       </div>
       <div class="input-field center">
-        <button id="addAset" class="btn-small">Add</button>
+        <button id="addItem" class="btn-small">Add</button>
       </div>
     </form>
   </div>

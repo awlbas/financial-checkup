@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" href="/icons/icon-96x96.png">
   <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
 </head>
-<body class="grey lighten-4 function" id="kewajiban">
+<body class="grey lighten-4 function" id="aset">
 
   <!-- top nav -->
   <nav class="z-depth-0">
@@ -28,34 +28,34 @@
     </div>
   </nav>
   
- <!-- side nav -->
- <ul id="side-menu" class="sidenav side-menu">
-  <li><a class="subheader">FINANCIAL CHECKUP</a></li>
-  <li><a href="/" class="waves-effect">Home</a></li>
-  <li><a href="/pages/about.html" class="waves-effect">About</a></li>
-  <li><div class="divider"></div></li>
-  <li><a class="subheader">NERACA</a></li>
-  <li><a href="/neraca/aset/" class="waves-effect">Aset</a></li>
-  <li><a href="/neraca/kewajiban/" class="waves-effect">Kewajiban</a></li>
-  <li><div class="divider"></div></li>
-  <li><a class="subheader">CASH FLOW</a></li>
-  <li><a href="/cashflow/danamasuk/" class="waves-effect">Dana Masuk</a></li>
-  <li><a href="/cashflow/danakeluar/" class="waves-effect">Dana Keluar</a></li>
-  <li><div class="divider"></div></li>
-  <li><a href="/pages/contact.html" class="waves-effect">
-    <i class="material-icons">mail_outline</i>Contact</a>
-  </li>
-</ul>
+  <!-- side nav -->
+  <ul id="side-menu" class="sidenav side-menu">
+    <li><a class="subheader">FINANCIAL CHECKUP</a></li>
+    <li><a href="/" class="waves-effect">Home</a></li>
+    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">NERACA</a></li>
+    <li><a href="/neraca/aset/" class="waves-effect">Aset</a></li>
+    <li><a href="/neraca/kewajiban/" class="waves-effect">Kewajiban</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">CASH FLOW</a></li>
+    <li><a href="/cashflow/danamasuk/" class="waves-effect">Dana Masuk</a></li>
+    <li><a href="/cashflow/danakeluar/" class="waves-effect">Dana Keluar</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/pages/contact.html" class="waves-effect">
+      <i class="material-icons">mail_outline</i>Contact</a>
+    </li>
+  </ul>
 
-  <!-- kewajiban -->
-  <div class="container"><h6 class="center">Kewajiban</h6></div>
+  <!-- asets -->
+  <div class="container"><h6 class="center">Aset</h6></div>
   <div class="items container grey-text text-darken-1"></div>
   
   <!-- total -->
   <div class="totalaset container">
     <div class="card-panel white row center">
       <div class="item-details">
-          <div class="item-title">TOTAL KEWAJIBAN</div>
+          <div class="item-title">TOTAL ASET</div>
           <div class="item-title" id="total-item">0</div>
       </div>
     </div>
@@ -71,16 +71,17 @@
   <!-- add aset side nav -->
   <div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
-      <h6 >Tambah Kewajiban</h6>
+      <h6>Tambah Aset</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Kartu Kredit" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
+        <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
       </div>
       <div class="input-field">
         <select name="tipe" id="tipe" required>
             <option value="Pilih" disabled selected>Pilih Tipe</option>
-            <option value="Jangka Pendek">Jangka Pendek</option>
-            <option value="Jangka Panjang">Jangka Panjang</option>
+            <option value="Likuid">Likuid</option>
+            <option value="Investasi">Investasi</option>
+            <option value="Perusahaan">Perusahaan</option>
         </select>
         <label for="tipe">Tipe Aset : </label>
       </div>
