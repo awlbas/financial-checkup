@@ -1,188 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=300, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <title>Document</title>
-    </head>
+<html>
 <body>
-<br><br><br>
-<div class="input-field col s12">
-    <select name="tipe" id="tipe">
-        <option value="" disabled selected>Pilih Tipe Aset</option>
-        <option value="Likuid">Likuid</option>
-        <option value="Investasi">Investasi</option>
-        <option value="Perusahaan">Perusahaan</option>
-    </select>
-    <label for="tipe">Tipe Aset : </label>
-  </div>
-    <!-- tambah aset -->
-    <form class="container tambahaset">
-        <ul>
-            <li>
-                <label for="nama">Nama Aset : </label>
-                <input type="text" name="nama" id="nama">
-            </li>
-            <li>
-                <label for="tipe">Tipe Aset : </label>
-                <select name="tipe" id="tipe">
-                    <option value="Likuid">Likuid</option>
-                    <option value="Investasi">Investasi</option>
-                    <option value="Perusahaan">Perusahaan</option>
-                </select>
-            </li>
-            <li>
-                <label for="nilai">Nilai Aset Rp: </label>
-                <input type="number" name="nilai" id="nilai">
-            </li>
-            <li>
-                <button>Tambah Aset</button>
-            </li>
-        </ul>
-    </form>
 
-    <!-- dasboard -->
-    <div class="container">
-        <!-- Nilai Bersih Kekayaan -->
-        <div>
-            <h5>NILAI BERSIH KEKAYAAN</h5>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item" >
-                    Jumlah Kekayaan Bersih Anda Saat Ini: <?= $data['kayaBersih'] ?>
-                </li>
-                <li class="list-group-item">
-                    <?= $data['persenKaya'] ?>,00%
-                </li>
-                <li class="list-group-item">
-                    <?php 
+<p>Click the button to get a new array with the full name of each person in the array.</p>
+<button onclick="myFunction()">Try it</button>
 
-                        if ( $data['persenKaya'] < 0 ) {
-                            echo 'Bangkrut';
-                        } elseif ( $data['persenKaya'] <= 50 ) {
-                            echo 'Belum Aman';
-                        } else {
-                            echo 'Aman';
-                        }
-                    
-                    ?>
-                </li>
-            </ul>
-        </div>
+<p>New array: <span id="demo"></span></p>
 
-        <!-- Dana Darurat -->
-        <div>
-            <h5>DANA DARURAT</h5>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">
-                    Pengeluaran Bulanan Perusahaan: <?= $data['sumdankel'] ?>
-                </li>
-                <li class="list-group-item">
-                    Dana Darurat Saat Ini: <?= $data['sumAsetLik'] ?>
-                </li>
-                <li class="list-group-item">
-                    Dana Darurat Ideal 3 Bulan - 6 Bulan: <?= $data['sumAsetLik'] / $data['sumdankel'] ?>
-                </li>
-            </ul>
-        </div>
+<script>
+var persons = [
+  {firstname : "Malcom", lastname: "Reynolds"},
+  {firstname : "Kaylee", lastname: "Frye"},
+  {firstname : "Jayne", lastname: "Cobb"}
+];
 
-        <!-- Rasio Menabung/Investasi -->
-        <div>
-            <h5>RASIO MENABUNG/INVESTASI</h5>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">
-                    Saat Ini Investasi/Menabung Sebesar: <?= $data['sumKelInv'] ?>
-                </li>
-                <li class="list-group-item">
-                    <?= $data['rasioTabung'] ?>% dari penghasilan perusahaan.
-                </li>
-            </ul>
 
-        </div>
+function getFullName(item) {
+  var fullname = [item.firstname,item.lastname].join(" ");
+  return fullname;
+}
 
-        <!-- Rasio Kewajiban Terhadap Aset -->
-        <div>
-            <h5>RASIO KEWAJIBAN TERHADAP ASET</h5>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">
-                    Jumlah Utang (Kewajiban Perusahaan): <?= $data['totalKewajiban'] ?>
-                </li>
-                <li class="list-group-item">
-                    Dibandingkan aset saat ini: <?= $data['rasioWajib'] ?>%
-                </li>
-            </ul>
-        </div>
+function myFunction() {
+  document.getElementById("demo").innerHTML = persons.map(getFullName);
+}
 
-        <!-- Rasio Kewajiban Terhadap Penghasilan -->
-        <div>
-            <h5>RASIO KEWAJIBAN TERHADAP PENGHASILAN</h5>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">
-                    Maksimum Total Cicilan Utang (kewajiban) Adalah: 
-                    <?= $data['sumJangKel'] / $data['sumdansuk'] * 100; ?>%
+console.log(persons.map(getFullName));
+</script>
 
-                </li>
-            </ul>
-        </div>
-
-    </div>
-
-    <!-- neraca -->
-    <div class="aset container">
-        <h5>ASET</h5><br>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">Nama</li>
-            <li class="list-group-item">Tipe</li>
-            <li class="list-group-item">Nilai Rp</li>
-        </ul>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item"><?= $aset['nama']; ?></li>
-            <li class="list-group-item"><?= $aset['tipe']; ?></li>
-            <li class="list-group-item"><?= $aset['nilai']; ?></li>
-            <li class="list-group-item"><a href="<?=BASEURL?>neraca/hapusaset/<?= $aset['id'] ?>" onclick="return confirm('yakin?');">Hapus</a></li>
-            <li class="list-group-item"><a href="<?=BASEURL?>neraca/ubahaset/<?= $aset['id'] ?>">Ubah</a></li>
-        </ul><br>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">TOTAL ASET</li>
-            <li class="list-group-item"><?= array_sum($data['totalAset']) ?></li>
-        </ul>
-    </div><br>
-
-    <!-- kewajiban -->
-    <div class="kewajiban container">
-        <h5>KEWAJIBAN</h5><br>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">Nama</li>
-            <li class="list-group-item">Tipe</li>
-            <li class="list-group-item">Nilai Rp</li>
-        </ul>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item"><?= $wajib['nama']; ?></li>
-            <li class="list-group-item"><?= $wajib['tipe']; ?></li>
-            <li class="list-group-item"><?= $wajib['nilai']; ?></li>
-            <li class="list-group-item"><a href="<?=BASEURL?>neraca/hapuskewajiban/<?= $wajib['id'] ?>" onclick="return confirm('yakin?');">Hapus</a></li>
-            <li class="list-group-item"><a href="<?=BASEURL?>neraca/ubahwajib/<?= $wajib['id'] ?>">Ubah</a></li>
-        </ul><br>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">TOTAL KEWAJIBAN</li>
-            <li class="list-group-item"><?= array_sum($data['totalKewajiban']) ?></li>
-        </ul>
-        
-    </div><br>
-
-    <!-- kekayaan bersih -->
-    <div class="kekayaan container">
-        <h5>KEKAYAAN BERSIH</h5><br>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">KEKAYAAN BERSIH</li>
-            <li class="list-group-item"><?= array_sum($data['totalAset']) - array_sum($data['totalKewajiban']) ?></li>
-        </ul>
-    </div>
-
-    <script src="js/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="js/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>

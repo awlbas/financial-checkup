@@ -12,8 +12,8 @@ const FUNC = document.querySelector('.function').getAttribute('id');
 const NAMA = document.getElementById('nama');
 const TIPE = document.getElementById('tipe');
 const NILAI = document.getElementById('nilai');
-const KEWAJIBAN = ['kewajiban',[{nama:'Kartu kredit',tipe:'Jangka Pendek',nilai: 100},{nama:'Cicilan Workshop',tipe:'Jangka Panjang',nilai:200}]];
 const ASET = ['aset',[{nama:'Tabungan',tipe:'Likuid',nilai: 100},{nama:'Emas',tipe:'Investasi',nilai:150},{nama:'Alat Produksi',tipe:'Perusahaan',nilai:500}]];
+const KEWAJIBAN = ['kewajiban',[{nama:'Kartu kredit',tipe:'Jangka Pendek',nilai: 100},{nama:'Cicilan Workshop',tipe:'Jangka Panjang',nilai:200}]];
 const DANAMASUK = ['danamasuk',[{nama:'Profit Bersih Penjualan',tipe:'Tetap',nilai: 100},{nama:'Komisi',tipe:'Tidak Tetap',nilai:150}]];
 const DANAKELUAR = ['danakeluar',[{nama:'Gaji Karyawan',tipe:'Tetap perusahaan',nilai: 100},{nama:'Biaya Transportasi',tipe:'Tetap Operasional',nilai:150},{nama:'Cicilan Modal Kerja',tipe:'Kewajiban Jangka Pendek',nilai:150},{nama:'Cicilan Kantor',tipe:'Kewajiban Jangka Panjang',nilai:150},{nama:'Tabungan Pensiun',tipe:'Tabungan & Investasi',nilai:150},{nama:'Premi Asuransi',tipe:'Proteksi',nilai:150},{nama:'TV Kabel',tipe:'Konsumtif',nilai:150},{nama:'Pajak Mobil & Motor',tipe:'Variabel',nilai:150},]];
 const DB_STORE_NAME = [ASET, KEWAJIBAN, DANAMASUK, DANAKELUAR];
@@ -22,7 +22,6 @@ const DB_STORE_NAME = [ASET, KEWAJIBAN, DANAMASUK, DANAKELUAR];
 let db;
 
 window.onload = () => {
-
     // lookup function
     let lookupFunction = {
         // displayData
@@ -35,7 +34,7 @@ window.onload = () => {
         'remaset':(itemId)=>{removeData(0,0,itemId)},'remkewajiban':(itemId)=>{removeData(1,0,itemId)},
         'remdanamasuk':()=>{displayData(2,0)},'remdanakeluar':()=>{displayData(3,0)},
     }
-
+    
     // create db connection
     let req = indexedDB.open(DB_NAME, DB_VERSION);
 
@@ -46,9 +45,8 @@ window.onload = () => {
     req.onsuccess = evt => {
         console.log("openDb DONE");
         db = req.result;
-
         // call displayData
-        lookupFunction[FUNC]();
+        if (FUNC !== "hasil") {lookupFunction[FUNC]();} else {hasilCheckUp();}
     };
     req.onupgradeneeded = evt => {
         let db = evt.target.result;
@@ -80,6 +78,143 @@ window.onload = () => {
         // store.put({nama: "Emas", tipe: "Investasi", nilai:200});
         // store.put({nama: "Alat Produksi", tipe: "Perusahaan", nilai:500});
     };
+
+    // function hasil checkup 
+    function hasilCheckUp(){
+        getData();
+
+        function displayHasil(id,nilai){
+            document.getElementById(id).innerHTML = nilai;
+        }
+
+        function getData(){
+            let totalAset = 0;
+            let totalWajib = 0;
+            let totalLikuid = 0;
+            let totalDankel = 0;
+            let totalInvest = 0;
+            let totalDansuk = 0;
+            let totalPendek = 0;
+            let totalPanjang = 0;
+
+            // Kekayaan Bersih
+            db.transaction('aset').objectStore('aset').openCursor().onsuccess = event => {
+                let cursor = event.target.result;
+                if(!cursor == true){
+                    db.transaction('kewajiban').objectStore('kewajiban').openCursor().onsuccess = event => {
+                        let cursor = event.target.result;
+                        if(!cursor){
+                            let kayaBersih = totalAset-totalWajib;
+                            let rasioKaya = kayaBersih/totalAset*100;
+                            let hasilKaya = (rasioKaya > 50) ? "Aman":"Tidak Aman";
+                            displayHasil("kaya-bersih",kayaBersih);
+                            displayHasil("rasio-kaya",rasioKaya);
+                            displayHasil("hasil-kaya",hasilKaya);
+                            return
+                        }
+                        totalWajib += cursor.value.nilai;
+                        cursor.continue();
+                    }
+                    return
+                }
+                totalAset += cursor.value.nilai;
+                cursor.continue();
+            }
+
+            // Dana Darurat
+            db.transaction('aset').objectStore('aset').
+            index("by_tipe").openCursor("Likuid").onsuccess = event => {
+                let cursor = event.target.result;
+                if(!cursor){
+                    db.transaction('danakeluar').objectStore('danakeluar').openCursor().onsuccess = event => {
+                        let cursor = event.target.result
+                        if(!cursor){
+                            displayHasil("keluar-bulanan", totalDankel);
+                            displayHasil("dana-darurat", totalLikuid);
+                            displayHasil("waktu-darurat", (totalLikuid/totalDankel).toFixed(2));
+                            return
+                        }
+                        totalDankel += cursor.value.nilai;
+                        cursor.continue();
+                    }
+                    return
+                }
+                totalLikuid += cursor.value.nilai;
+                cursor.continue();
+            }
+            
+            // Rasio Menabung & Investasi
+            db.transaction('danakeluar').objectStore('danakeluar').
+            index("by_tipe").openCursor("Tabungan & Investasi").onsuccess = event => {
+                let cursor = event.target.result;
+                if(!cursor){
+                    db.transaction('danamasuk').objectStore('danamasuk').openCursor().onsuccess = event => {
+                        let cursor = event.target.result
+                        if(!cursor){
+                            displayHasil("total-invest", totalInvest);
+                            displayHasil("rasio-invest", (totalInvest/totalDansuk*100).toFixed(2));
+                            return
+                        }
+                        totalDansuk += cursor.value.nilai;
+                        cursor.continue();
+                    }
+                    return
+                }
+                totalInvest += cursor.value.nilai;
+                cursor.continue();
+            }
+
+            //Rasio Kewajiban Terhadap Aset
+            db.transaction('aset').objectStore('aset').openCursor().onsuccess = event => {
+                let cursor = event.target.result;
+                if(!cursor == true){
+                    db.transaction('kewajiban').objectStore('kewajiban').openCursor().onsuccess = event => {
+                        let cursor = event.target.result;
+                        if(!cursor){
+                            displayHasil("total-wajib-aset",totalWajib);
+                            displayHasil("rasio-wajib-aset",(totalWajib/totalAset*100).toFixed(2));
+                            return
+                        }
+                        totalWajib += cursor.value.nilai;
+                        cursor.continue();
+                    }
+                    return
+                }
+                totalAset += cursor.value.nilai;
+                cursor.continue();
+            }
+            
+            // Rasio Kewajiban Terhadap Penghasilan
+            db.transaction('danakeluar').objectStore('danakeluar').
+            index("by_tipe").openCursor("Kewajiban Jangka Panjang").onsuccess = event => {
+                let cursor = event.target.result;
+                if(!cursor){
+                    db.transaction('danamasuk').objectStore('danamasuk').openCursor().onsuccess = event => {
+                        let cursor = event.target.result
+                        if(!cursor){
+                            db.transaction('danakeluar').objectStore('danakeluar').
+                            index("by_tipe").openCursor("Kewajiban Jangka Pendek").onsuccess = event => {
+                                let cursor = event.target.result
+                                if(!cursor){
+                                    displayHasil("rasio-wajib-hasil", ((totalPanjang+totalPendek)/totalDansuk*100).toFixed(2));
+                                    return
+                                }
+                                totalPendek += cursor.value.nilai;
+                                cursor.continue();
+                            }
+                            return
+                        }
+                        totalDansuk += cursor.value.nilai;
+                        cursor.continue();
+                    }
+                    return
+                }
+                totalPanjang += cursor.value.nilai;
+                cursor.continue();
+            }
+
+        }
+    }
 
     // display data function
     function displayData(a,b){
@@ -117,7 +252,7 @@ window.onload = () => {
     }
 
     // add event listener to form for add data
-    FORM.addEventListener('submit',submitData,false);
+    if (FUNC !== "hasil") {FORM.addEventListener('submit',submitData,false);}
     function submitData(e) {
         e.preventDefault();
         lookupFunction['add'+FUNC](); 
@@ -157,14 +292,14 @@ window.onload = () => {
     }
 
     // add event listener for delete item
-    ITEMS.addEventListener('click', event => {
+    if (FUNC !== "hasil") {ITEMS.addEventListener('click', event => {
         if(event.target.tagName === 'I'){
             // retrieve the name of the item we want to delete
             let itemId = parseInt(event.target.getAttribute('data-id'));
             // call lookup Function removeData
             lookupFunction['rem'+FUNC](itemId);
         }
-    })
+    })}
     function removeData(a,b,itemId){
         // open a database transaction and delete the item, finding it by keypath we retrieved above
         let transaction = db.transaction(DB_STORE_NAME[a][b], "readwrite");
@@ -179,5 +314,4 @@ window.onload = () => {
             displayData(a,b);
         }
     }
-
 }

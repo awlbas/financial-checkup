@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" href="/icons/icon-96x96.png">
   <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
 </head>
-<body class="grey lighten-4 function" id="aset">
+<body class="grey lighten-4 function" id="hasil">
 
   <!-- top nav -->
   <nav class="z-depth-0">
@@ -47,55 +47,62 @@
     </li>
   </ul>
 
-  <!-- asets -->
-  <div class="container"><h6 class="center">Aset</h6></div>
-  <div class="items container grey-text text-darken-1"></div>
-  
-  <!-- total -->
-  <div class="totalaset container">
-    <div class="card-panel white row center">
-      <div class="item-details">
-          <div class="item-title">TOTAL ASET</div>
-          <div class="item-title" id="total-item">0</div>
+  <!-- hasil checkup -->
+  <div class="container"><h6 class="center">Hasil Checkup</h6></div>
+    <!-- nilai bersih kekayaan -->
+    <div class="container">
+      <div class="card-panel white row center">
+        <div class="item-details">
+          <div class="item-title">NILAI BERSIH KEKAYAAN ANDA</div>
+          <div class="item-tipe">Rp. <span id="kaya-bersih">0</span></div>
+          <div class="item-tipe">Rasio: <span id="rasio-kaya">0</span>%</div>
+          <div class="item-title"><span id="hasil-kaya">0</span></div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- button -->
-  <div class="center">
-    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
-      <i class="material-icons">add</i>
-    </a>
-  </div>
-
-  <!-- add aset side nav -->
-  <div id="side-form" class="sidenav side-form">
-    <form class="add-recipe container section">
-      <h6>Tambah Aset</h6>
-      <div class="divider"></div>
-      <div class="input-field">
-        <input placeholder="e.g. Tabungan Mandiri" id="nama" type="text" class="validate" required><label for="nama">Nama Aset</label>
+    <!-- dana darurat -->
+    <div class=" container">
+      <div class="card-panel white row center">
+        <div class="item-details">
+          <div class="item-title">DANA DARURAT</div>
+          <div class="item-tipe">Pengeluaran bulanan perusahaan: <span id="keluar-bulanan">0</span></div>
+          <div class="item-tipe">Dana darurat saat ini: <span id="dana-darurat">0</span></div>
+          <div class="item-title">Dana darurat untuk: <span id="waktu-darurat">0</span> bulan</div>
+        </div>
       </div>
-      <div class="input-field">
-        <select name="tipe" id="tipe" required>
-            <option value="Pilih" disabled selected>Pilih Tipe</option>
-            <option value="Likuid">Likuid</option>
-            <option value="Investasi">Investasi</option>
-            <option value="Perusahaan">Perusahaan</option>
-        </select>
-        <label for="tipe">Tipe Aset : </label>
+    </div>
+    <!-- rasio menabung -->
+    <div class=" container">
+      <div class="card-panel white row center">
+        <div class="item-details">
+          <div class="item-title">RASIO MENABUNG/INVESTASI</div>
+          <div class="item-tipe">Saat ini investasi/menabung: Rp. <span id="total-invest">0</span></div>
+          <div class="item-title"><span id="rasio-invest">0</span> % Dari penghasilan perusahaan</div>
+        </div>
       </div>
-      <div class="input-field">
-        <input placeholder="e.g. 1000" id="nilai" type="number" class="validate" required><label for="nilai">Nilai</label>
+    </div>
+    <!-- rasio kewajiban terhadap aset -->
+    <div class=" container">
+      <div class="card-panel white row center">
+        <div class="item-details">
+          <div class="item-title">RASIO KEWAJIBAN TERHADAP ASET</div>
+          <div class="item-tipe">Jumlah kewajiban perusahaan: Rp. <span id="total-wajib-aset">0</span></div>
+          <div class="item-title">Dibandingkan aset saat ini: <span id="rasio-wajib-aset">0</span> %</div>
+        </div>
       </div>
-      <div class="input-field center">
-        <button id="addAset" class="btn-small">Add</button>
+    </div>
+    <!-- rasio kewajiban terhadap penghasilan -->
+    <div class=" container">
+      <div class="card-panel white row center">
+        <div class="item-details">
+          <div class="item-title">RASIO KEWAJIBAN TERHADAP PENGHASILAN</div>
+          <div class="item-title">Dibandingkan aset saat ini: <span id="rasio-wajib-hasil">0</span> %</div>
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
 
   <!-- <script src="js/app.js"></script> -->
-  <script src="js/db.js"></script>
-  <script src="js/ui.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/ui.js"></script>
 </body>
 </html>

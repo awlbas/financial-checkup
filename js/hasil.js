@@ -44,7 +44,7 @@ document.querySelector('.kekayaanBersih').innerHTML += kekayaanBersihUi;
     let totalInvest = 0;
     danaKeluar.filter(dankel => {return dankel.tipe == 'investasi';}).forEach( dankel => totalInvest += dankel.nilai ); 
 
-    // ratio investasi dari penghasilan perusahaan = total investasi / total dan masuk
+    // ratio investasi dari penghasilan perusahaan = total investasi / total dansuk
 
     // ui
     const rasioInvestui = `

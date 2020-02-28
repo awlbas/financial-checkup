@@ -1,3 +1,27 @@
+function KayaBersih(){
+  let total = 0;
+  db.transaction('aset').objectStore('aset').openCursor().onsuccess = event => {
+      let cursor = event.target.result;
+      
+      if(cursor) {
+          
+          db.transaction('kewajiban').objectStore('kewajiban').openCursor().onsuccess = event2 => {
+              let cursor2 = event2.target.result;
+              if(cursor2) {
+                  total -= cursor2.value.nilai;
+                  cursor2.continue();
+                  console.log(total);
+              }
+          }
+          
+          total += cursor.value.nilai;
+          console.log(total);
+          cursor.continue();
+      }
+  }
+}
+
+
 function addAset() {
     let items =
       { nama: document.getElementById('nama').value,
