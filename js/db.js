@@ -32,7 +32,7 @@ window.onload = () => {
         'adddanamasuk':()=>{addData(2,0)},'adddanakeluar':()=>{addData(3,0)},
         // removeData
         'remaset':(itemId)=>{removeData(0,0,itemId)},'remkewajiban':(itemId)=>{removeData(1,0,itemId)},
-        'remdanamasuk':()=>{displayData(2,0)},'remdanakeluar':()=>{displayData(3,0)},
+        'remdanamasuk':(itemId)=>{removeData(2,0,itemId)},'remdanakeluar':(itemId)=>{removeData(3,0,itemId)},
     }
     
     // create db connection
@@ -88,14 +88,22 @@ window.onload = () => {
         }
 
         function getData(){
+            // kekayaan bersih
             let totalAset = 0;
             let totalWajib = 0;
-            let totalLikuid = 0;
+            // dana darurat
             let totalDankel = 0;
+            let totalLikuid = 0;
+            // rasio manabung
             let totalInvest = 0;
             let totalDansuk = 0;
+            // rasio kewajiban aset
+            let totalAsetRasio = 0;
+            let totalWajibRasio = 0;
+            // rasio kewajiban penghasilan
             let totalPendek = 0;
             let totalPanjang = 0;
+            let totalDansukHasil = 0;
 
             // Kekayaan Bersih
             db.transaction('aset').objectStore('aset').openCursor().onsuccess = event => {
@@ -172,15 +180,15 @@ window.onload = () => {
                         let cursor = event.target.result;
                         if(!cursor){
                             displayHasil("total-wajib-aset",totalWajib);
-                            displayHasil("rasio-wajib-aset",(totalWajib/totalAset*100).toFixed(2));
+                            displayHasil("rasio-wajib-aset",(totalWajib/totalAsetRasio*100).toFixed(2));
                             return
                         }
-                        totalWajib += cursor.value.nilai;
+                        totalWajibRasio += cursor.value.nilai;
                         cursor.continue();
                     }
                     return
                 }
-                totalAset += cursor.value.nilai;
+                totalAsetRasio += cursor.value.nilai;
                 cursor.continue();
             }
             
@@ -204,7 +212,7 @@ window.onload = () => {
                             }
                             return
                         }
-                        totalDansuk += cursor.value.nilai;
+                        totalDansukHasil += cursor.value.nilai;
                         cursor.continue();
                     }
                     return
