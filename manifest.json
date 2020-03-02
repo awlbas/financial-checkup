@@ -1,6 +1,6 @@
 {
     "name": "Financial Checkup",
-    "short_name": "FinancialCheckup",
+    "short_name": "Financial Checkup",
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#FFE9D2",
