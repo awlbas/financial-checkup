@@ -22,14 +22,14 @@ const DB_STORE_NAME = [ASET, KEWAJIBAN, DANAMASUK, DANAKELUAR];
 let db;
 
 // retrive db data & store in array
-class ValueDB {  
+class ValueDB {
     constructor (objectStore) {
         this.value = new Promise (resolve => {
             let result = [];
             db.transaction(objectStore).objectStore(objectStore).openCursor().onsuccess = event => {
                 let cursor = event.target.result;
                 if(!cursor){
-                    resolve(result);
+                    resolve (result);
                     return
                 }
                 result.push(cursor.value);
@@ -91,15 +91,17 @@ window.onload = () => {
     
     // function hasil checkup 
     function hasilCheckUp(){
+
         const aset = new ValueDB('aset');
         const kewajiban = new ValueDB('kewajiban');
         const danaMasuk = new ValueDB('danamasuk');
         const danaKeluar = new ValueDB('danakeluar');
-        
+
         // execute main function
         Promise.all([aset.value,kewajiban.value,danaMasuk.value,danaKeluar.value]).then( response => {
             const[aset,kewajiban,danaMasuk,danaKeluar] = response;
             const[totalAset,totalKewajiban,totalDanaMasuk,totalDanaKeluar] = total(aset,kewajiban,danaMasuk,danaKeluar);
+            
             // kekayaan bersih
             kayaBersih(totalAset,totalKewajiban);
             // dana darurat

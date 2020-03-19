@@ -21,15 +21,14 @@ const DB_STORE_NAME = [ASET, KEWAJIBAN, DANAMASUK, DANAKELUAR];
 // store result db connection
 let db;
 
-// retrive db data & store in array
-class ValueDB {  
+class ValueDB {
     constructor (objectStore) {
         this.value = new Promise (resolve => {
             let result = [];
             db.transaction(objectStore).objectStore(objectStore).openCursor().onsuccess = event => {
                 let cursor = event.target.result;
                 if(!cursor){
-                    resolve(result);
+                    resolve (result);
                     return
                 }
                 result.push(cursor.value);
@@ -91,74 +90,82 @@ window.onload = () => {
     
     // function hasil checkup 
     function hasilCheckUp(){
-        const aset = new ValueDB('aset');
-        const kewajiban = new ValueDB('kewajiban');
-        const danaMasuk = new ValueDB('danamasuk');
-        const danaKeluar = new ValueDB('danakeluar');
-        
-        // execute main function
-        Promise.all([aset.value,kewajiban.value,danaMasuk.value,danaKeluar.value]).then( response => {
+
+        let aset = new ValueDB('aset');
+        let kewajiban = new ValueDB('kewajiban');
+        let danaMasuk = new ValueDB('danamasuk');
+        let danaKeluar = new ValueDB('danakeluar');
+
+        Promise.all([aset.value,kewajiban.value,danaMasuk.value,danaKeluar.value])
+        .then( response => {
             const[aset,kewajiban,danaMasuk,danaKeluar] = response;
-            const[totalAset,totalKewajiban,totalDanaMasuk,totalDanaKeluar] = total(aset,kewajiban,danaMasuk,danaKeluar);
+
             // kekayaan bersih
-            kayaBersih(totalAset,totalKewajiban);
+            kayaBersih(aset,kewajiban);
             // dana darurat
-            danaDarurat(totalDanaKeluar, aset);
+            danaDarurat(danaKeluar, aset);
             // rasio menabung/investasi
-            rasioTabung(danaKeluar,totalDanaMasuk);
+            rasioTabung(danaKeluar,danaMasuk);
             //rasio kewajiban terhadap aset
-            rasioKewajibanAset(totalKewajiban,totalAset);
+            rasioKewajibanAset(kewajiban,aset);
             //rasio kewajiban terhadap penghasilan
-            rasiokewajibanHasil(danaKeluar,totalDanaMasuk)
+            rasiokewajibanHasil(danaKeluar,danaMasuk)
         })
+    }
 
-        // general function
-        function total(...values){
-            let total = [];
-            values.forEach(value => {
-                total.push(value.map(item=>item.nilai).reduce((acc,item)=>acc+item));
-            })
-            return total
-        }
-        function displayHasil(idNilai){
-            idNilai.forEach(value =>{
-                document.getElementById(value[0]).innerHTML = value[1];
-            })
-        }
-        function filterNilai(...values){
-            let total = []
-            values.forEach(value => {
-                total.push(value[0].filter(objectStore => {return objectStore.tipe == value[1];}).map(tipeStore => tipeStore.nilai).reduce((acc,item)=>acc+item))
-            })
-            return total
-        }
+    function rasiokewajibanHasil(danaKeluar,danaMasuk){
+        const [totalDanaMasuk] = total(danaMasuk)
+        const totalKeluarPanjang = danaKeluar.filter(danaKeluar => {return danaKeluar.tipe == 'Kewajiban Jangka Panjang';}).map(jangkaPanjang=>jangkaPanjang.nilai).reduce((acc,item)=>acc+item);
+        const totalKeluarPendek = danaKeluar.filter(danaKeluar => {return danaKeluar.tipe == 'Kewajiban Jangka Pendek';}).map(jangkaPendek=>jangkaPendek.nilai).reduce((acc,item)=>acc+item);
+        const rasio = ((totalKeluarPanjang+totalKeluarPendek)/totalDanaMasuk*100).toFixed(2)
 
-        // main function
-        function rasiokewajibanHasil(danaKeluar,totalDanaMasuk){
-            const [totalKeluarPanjang,totalKeluarPendek] = filterNilai([danaKeluar,'Kewajiban Jangka Panjang'],[danaKeluar,'Kewajiban Jangka Pendek']);
-            const rasio = ((totalKeluarPanjang+totalKeluarPendek)/totalDanaMasuk*100).toFixed(2);
-            displayHasil([['rasio-wajib-hasil',rasio]]);
-        }
-        function rasioKewajibanAset(totalKewajiban,totalAset){
-            const rasio = (totalKewajiban/totalAset*100).toFixed(2);
-            displayHasil([['total-wajib-aset',totalKewajiban],['rasio-wajib-aset',rasio]]);
-        }
-        function rasioTabung(danaKeluar,totalDanaMasuk){
-            const [totalInvest] = filterNilai([danaKeluar,'Tabungan & Investasi']);
-            const rasioInvest = (totalInvest/totalDanaMasuk*100).toFixed(2);
-            displayHasil([["total-invest", totalInvest],["rasio-invest",rasioInvest]]);
-        }    
-        function danaDarurat(totalDanaKeluar, aset){
-            const totalLikuid = filterNilai([aset,'Likuid']);
-            const waktuDarurat = (totalLikuid/totalDanaKeluar).toFixed(2);
-            displayHasil([["keluar-bulanan", totalDanaKeluar],["dana-darurat", totalLikuid],["waktu-darurat", waktuDarurat]]);
-        } 
-        function kayaBersih(totalAset,totalKewajiban) {
-            const kayaBersih = totalAset - totalKewajiban;
-            const rasioKaya = kayaBersih/totalAset*100;
-            const hasilKaya = (rasioKaya > 50) ? "Aman":"Tidak Aman";
-            displayHasil([["kaya-bersih", kayaBersih],["rasio-kaya",rasioKaya],["hasil-kaya", hasilKaya]])
-        }
+        displayHasil([['rasio-wajib-hasil',rasio]]);
+    }
+
+    function rasioKewajibanAset(kewajiban,aset){
+        const [totalKewajiban,totalAset] = total(kewajiban,aset);
+        const rasio = (totalKewajiban/totalAset*100).toFixed(2);
+        
+        displayHasil([['total-wajib-aset',totalKewajiban],['rasio-wajib-aset',rasio]]);
+    }
+
+    function rasioTabung(danaKeluar,danaMasuk){
+        const totalInvest = danaKeluar.filter(danaKeluar => {return danaKeluar.tipe == 'Tabungan & Investasi';}).map(tabungan=>tabungan.nilai).reduce((acc,item)=>acc+item);
+        const [totalDanaMasuk] = total(danaMasuk);
+        const rasioInvest = (totalInvest/totalDanaMasuk*100).toFixed(2);
+        
+        displayHasil([["total-invest", totalInvest],["rasio-invest",rasioInvest]]);
+    }
+
+    function danaDarurat(danaKeluar, aset){
+        const [totalDanaKeluar] = total(danaKeluar);
+        const totalLikuid = aset.filter(aset => {return aset.tipe == 'Likuid';}).map(likuid=>likuid.nilai).reduce((acc,item)=>acc+item);
+        const waktuDarurat = (totalLikuid/totalDanaKeluar).toFixed(2);
+        
+        displayHasil([["keluar-bulanan", totalDanaKeluar],["dana-darurat", totalLikuid],["waktu-darurat", waktuDarurat]]);
+    }
+
+    function total(...values){
+        let total = [];
+        values.forEach(value => {
+            total.push(value.map(item=>item.nilai).reduce((acc,item)=>acc+item));
+        })
+        return total
+    }
+
+    function displayHasil(idNilai){
+        idNilai.forEach(value =>{
+            document.getElementById(value[0]).innerHTML = value[1];
+        })
+    }
+
+    function kayaBersih(aset,kewajiban) {
+        const [totalAset, totalKewajiban] = total(aset,kewajiban);
+        const kayaBersih = totalAset - totalKewajiban;
+        const rasioKaya = kayaBersih/totalAset*100;
+        const hasilKaya = (rasioKaya > 50) ? "Aman":"Tidak Aman";
+
+        displayHasil([["kaya-bersih", kayaBersih],["rasio-kaya",rasioKaya],["hasil-kaya", hasilKaya]])
     }
 
     // display data function
